@@ -1,0 +1,84 @@
+#arcade-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: rgba(165, 162, 162, 0.3);
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  place-items: center;
+  z-index: 1;
+}
+
+#arcade-header {
+  grid-area: arcade-header;
+}
+#arcade-body {
+  grid-area: arcade-body;
+}
+#arcade-footer {
+  grid-area: arcade-footer;
+}
+
+#arcade {
+  width: 50rem;
+  height: 38rem;
+
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+  grid-template-rows: 10% 80% 10%;
+  grid-template-areas: 
+    "arcade-header arcade-header arcade-header"
+    "arcade-body arcade-body arcade-body"
+    "arcade-footer arcade-footer arcade-footer";
+}
+
+#arcade > div {
+  background-color: red;
+}
+
+/* .ah-title {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+}
+
+.ah-close {
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+} */
+
+/* .ah {
+  display: flex;
+  justify-items: flex-end;
+} */
+
+#arcade > div#arcade-header {
+  background-color: #ff9800;
+  color: white;
+}
+
+.ah-title {
+  margin-left:auto;
+/*
+  grid-column: 2 / 3;
+*/
+  grid-column-start: 2;
+  grid-row: 1 / 2;
+}
+
+.ah-close {
+
+/*  grid-column: 4 / 4;
+    grid-row: 1 / 1;
+*/
+  margin-left:auto;
+  grid-row: 1 / 2;
+  grid-column-end: 3;
+}
+
+
+.ah {
+  display: flex;
+  justify-items: flex-end;
+}
