@@ -14,14 +14,42 @@
 
     <!-- <script type="importmap" src="./js/importmap.js"></script> -->
     <script src="https://unpkg.com/p5@1.5.0/lib/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/yama-dev/js-count-module@v0.3.2/dist/js-count-module.js"></script>
   </head>
 
   <body>
     <main>
 		<div id="arcade-container">
+			<div id="baobab-canvas">
+			</div>
+			<div id="growing-countdown">
+				<div id="countdown-caption">Slowly and Steadily</div>
+
+				<div class="countdown-box">
+					<span class="countdown countdown-day">00</span>
+					<span class="countdown-cap cap-day">日</span>
+					<span class="countdown countdown-hour">00</span>
+					<span class="countdown-cap cap-hour">時間</span>
+					<span class="countdown countdown-minute">00</span>
+					<span class="countdown-cap cap-minute">分</span>
+					<span class="countdown countdown-second">00</span>
+					<span class="countdown-cap cap-second">秒</span>
+				</div>
+			</div>
 		</div>
     </main>
     
+	<footer>
+		<div class="container text-center">
+			<p class="text-muted">
+				<small>
+					&copy; <span id="current-year"></span> &middot;
+					Build with <span class="text-danger">&hearts;</span> by
+					<a href="mailto:ismaelabbo46@gmail.com">IA</a>.
+				</small>
+			</p>
+		</div>
+	</footer>
     <!-- footer script -->
     <script src="./js/app.js" defer></script>
   </body>

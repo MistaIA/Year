@@ -1,92 +1,101 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@400&display=swap");
+
 #arcade-container {
-  width: 100%;
-  min-height: 100vh;
-  background-color: rgba(165, 162, 162, 0.3);
-  display: grid;
-  position: fixed;
-  top: 0;
-  left: 0;
+	width: 100%;
+	min-height: 100vh;
+	background-color: rgba(165, 162, 162, 0.3);
+	display: grid;
+	position: fixed;
+	top: 0;
+	left: 0;
 
-  place-items: center;
-  z-index: 1;
+	place-items: center;
+	z-index: 1;
+	text-align: center;
 }
 
-#arcade-header {
-  grid-area: arcade-header;
-}
-#arcade-body {
-  grid-area: arcade-body;
-}
-#arcade-footer {
-  grid-area: arcade-footer;
+#countdown-caption {
+	margin: 0 auto 0.5rem;
+	width: -webkit-fit-content;
+	width: -moz-fit-content;
+	width: fit-content;
+	font-size: 2.75vw;
 }
 
-#arcade {
-  width: 50rem;
-  height: 38rem;
-
-  display: grid;
-  grid-template-columns: 25% 50% 25%;
-  grid-template-rows: 10% 80% 10%;
-  grid-template-areas: 
-    "arcade-header arcade-header arcade-header"
-    "arcade-body arcade-body arcade-body"
-    "arcade-footer arcade-footer arcade-footer";
+.countdown-box {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	position: relative;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-box-align: end;
+	-ms-flex-align: end;
+	align-items: flex-end;
+	vertical-align: bottom;
+	margin: 0 auto;
+	width: -webkit-fit-content;
+	width: -moz-fit-content;
+	width: fit-content;
 }
 
-#arcade > div {
-  background-color: red;
+.countdown {
+	min-width: 1em;
+	font-weight: 400;
+	font-size: 16.429vw;
+	line-height: .65;
+	font-family: "Cormorant Infant", "Cormorant Garamond", serif;
+	letter-spacing: -3px;
+	white-space: nowrap;
 }
 
-/* .ah-title {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
+.countdown-cap {
+	margin-left: -0.3125rem;
+	font-size: 2.429vw;
+	line-height: 1;
 }
 
-.ah-close {
-  grid-column: 3 / 4;
-  grid-row: 1 / 2;
-} */
-
-/* .ah {
-  display: flex;
-  justify-items: flex-end;
-} */
-
-#arcade > div#arcade-header {
-  background-color: #ff9800;
-  color: white;
+.text-center {
+	text-align: center;
 }
 
-.ah-title {
-  margin-left:auto;
-/*
-  grid-column: 2 / 3;
-*/
-  grid-column-start: 2;
-  grid-row: 1 / 2;
+@media screen and (max-width: 767px){
+	#countdown-caption {
+		margin-bottom: 2.125rem;
+		font-size: 6.933vw;
+	}
+	.countdown {
+		min-width: 1em;
+		font-size: 20.267vw;
+		letter-spacing: -2px;
+	}
+	.countdown-cap {
+		margin-left: -2px;
+		font-size: 2.933vw;
+	}
 }
 
-.ah-close {
-
-/*  grid-column: 4 / 4;
-    grid-row: 1 / 1;
-*/
-  margin-left:auto;
-  grid-row: 1 / 2;
-  grid-column-end: 3;
+@media screen and (min-width: 1400px){
+	#countdown-caption {
+		font-size: 3.4375em;
+	}
+	.countdown {
+		font-size: 14.375em;
+	}
+	.countdown-cap {
+		font-size: 2.125em;
+	}
 }
 
-
-.ah {
-  display: flex;
-  justify-items: flex-end;
+@media screen and (max-width: 767px) and (min-width: 1400px){
+	#countdown-caption {
+		font-size: 6.07em;
+	}
+	.countdown {
+		font-size: 17.73em;
+	}
+	.countdown-cap {
+		font-size: 2.57em;
+	}
 }
-
-/* Canvas Section */
-/* canvas{
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%);
-  position: absolute;
-} */
