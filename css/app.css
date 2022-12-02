@@ -5,31 +5,43 @@
  | @GitLab MistaIA
  | @version 1.00
  | 
- | @contributors : @Harrold
+ | @contributors : @harrySign
  */
 
 
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400&display=swap");
+
+body * {
+	font-family: "Ubuntu", "Cormorant Garamond", serif;
+}
 
 a {
     color: #007bff;
 }
 
-/* 
-#arcade-container {
-	width: 100%;
-	min-height: 100vh;
-	background-color: rgba(165, 162, 162, 0.3);
-	display: grid;
-	position: fixed;
-	top: 0;#dc3545
-	left: 0;
+/* region Final rendering */
+.iacontent{
+    display : none;
+    width : 100%;
+    height : 100%;
+    background-color : rgba(0, 0, 0, 0.7);
+    transition : all ease 0.5s;
 
-	place-items: center;
-	z-index: 1;
+    position : fixed;
+    z-index : 1;
+
+    margin : auto;
 	text-align: center;
-} */
+	place-items: center;
+}
+.iacontent .countdown {
+	font-size: 8vw;
+	color: whitesmoke;
+}
+/* endregion */
 
+/* region Canvas */
 #baobab-canvas {
 	transition: all 0.5s ease-in-out;
 }
@@ -65,7 +77,7 @@ a {
 	font-weight: 400;
 	font-size: 16.429vw;
 	line-height: .65;
-	font-family: "Cormorant Infant", "Cormorant Garamond", serif;
+	/* font-family: "Cormorant Infant", "Cormorant Garamond", serif; */
 	letter-spacing: -3px;
 	white-space: nowrap;
 }
@@ -75,7 +87,9 @@ a {
 	font-size: 2.429vw;
 	line-height: 1;
 }
+/* endregion */
 
+/* region General purposes */
 footer {
 	font-size: 1em;
     font-weight: 400;
@@ -133,3 +147,4 @@ footer {
 		font-size: 2.57em;
 	}
 }
+/* endregion */

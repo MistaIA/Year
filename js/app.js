@@ -17,12 +17,12 @@ const
 	growingTimer	= document.querySelector(`#growing-countdown`),
 
 	currentDate		= new Date(),
-	goalDate		= new Date(2022, 11, 3, -11, -51),
+	goalDate		= new Date(2023, 0, 1),
 
 	DATE_RANGE		= createEnum({
 		'START_AGE_GROWTH': 25,
 		'MEDIUM_AGE_GROWTH': 15,
-		'THIRD_AGE_GROWTH': 7
+		'THIRD_AGE_GROWTH': 7,
 	});
 ;
 let
@@ -109,7 +109,7 @@ const Countdown	= {
 	getTimeLimit: function getTimeLimit(forwardDate, backwardDate){
 		const timeLimit	= forwardDate - backwardDate;
 
-		return Math.abs(timeLimit);
+		return timeLimit;
 	},
 	createCountModule: function createCountModule(){
 		const _this	= this;
@@ -121,16 +121,16 @@ const Countdown	= {
 				let 
 					_difference	= data.diffObjParsed,
 
-					_days		= zeroPadding(_difference.d),
-					_hours		= zeroPadding(_difference.h),
-					_minutes	= zeroPadding(_difference.m),
-					_seconds	= zeroPadding(_difference.s)
+					_days		= _difference.d,
+					_hours		= _difference.h,
+					_minutes	= _difference.m,
+					_seconds	= _difference.s
 				;
-		
-				_this.$days.textContent		= _days;
-				_this.$hours.textContent	= _hours;
-				_this.$minutes.textContent	= _minutes;
-				_this.$seconds.textContent	= _seconds;
+				console.log(DATE_RANGE);
+				_this.$days.textContent		= zeroPadding(_days);
+				_this.$hours.textContent	= zeroPadding(_hours);
+				_this.$minutes.textContent	= zeroPadding(_minutes);
+				_this.$seconds.textContent	= zeroPadding(_seconds);
 
 				if(DATE_RANGE.START_AGE_GROWTH >= _days && DATE_RANGE.MEDIUM_AGE_GROWTH < _days)
 				{
@@ -139,23 +139,38 @@ const Countdown	= {
 				}else if(DATE_RANGE.MEDIUM_AGE_GROWTH >= _days && DATE_RANGE.THIRD_AGE_GROWTH < _days)
 				{
 					console.log({'Medium Age':15});
+					betaHeight		= 1;
 					alphaWidth		= 1;
 					initialWidth	= 200;
 					initialHeight	= 100;
-				}else if(DATE_RANGE.THIRD_AGE_GROWTH >= _days && 1 < _days || `00` != _minutes)
+				}else if(DATE_RANGE.THIRD_AGE_GROWTH >= _days && 0 > _this.getTimeLimit(goalDate, currentDate))
 				{
 					console.log({'Third Age':7});
+					betaHeight		= 1;
+					alphaWidth		= 1;
 					initialWidth	= 220;
 					initialHeight	= 110;
 					growthGuard		= 2;
 				}
 			},
 			onComplete: function(data){
+				document.querySelector(`.iacontent`)
+					.style.display	= `grid`
+				;
+
 				const jsConfetti	= new JSConfetti();
 
 				jsConfetti.addConfetti({
-					emojis: ['⚡️', '💥', '✨', '💫', '🌸',],
+					emojis: [`⚡️`, `💥`, `✨`, `💫`, `🌸`, `🎊`, `🎐`,],
+					confettiNumber: 150,
 				});
+
+				console.log({'Completed':0});
+				betaHeight		= 1;
+				alphaWidth		= 1;
+				initialWidth	= 240;
+				initialHeight	= 120;
+				growthGuard		= 2;
 			}
 		});
 	},
@@ -172,7 +187,7 @@ const Countdown	= {
 };
 
 Countdown.init();
-
+console.log(Countdown.getTimeLimit(goalDate, currentDate));
 /**
  * Helpers
  */
