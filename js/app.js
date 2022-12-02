@@ -46,8 +46,14 @@ function setup()
 	;
 	background(0, 0, 30);
 
+	frameRate(8);
+
 	drawRoots(width / 2, height, 0, initialWidth, initialHeight);
-	drawRootTrunk(width / 2, height - 10, 0, initialWidth, initialHeight);
+}
+
+function draw()
+{
+	drawRootTrunk(width / 2, height - 10, 0, initialWidth, 90);
 	drawEdge(width / 2, height - 120, 0, initialWidth, initialHeight * 2);
 }
 
@@ -126,7 +132,7 @@ const Countdown	= {
 					_minutes	= _difference.m,
 					_seconds	= _difference.s
 				;
-				console.log(DATE_RANGE);
+				
 				_this.$days.textContent		= zeroPadding(_days);
 				_this.$hours.textContent	= zeroPadding(_hours);
 				_this.$minutes.textContent	= zeroPadding(_minutes);
@@ -149,7 +155,7 @@ const Countdown	= {
 					betaHeight		= 1;
 					alphaWidth		= 1;
 					initialWidth	= 220;
-					initialHeight	= 110;
+					initialHeight	= 120;
 					growthGuard		= 2;
 				}
 			},
@@ -187,7 +193,7 @@ const Countdown	= {
 };
 
 Countdown.init();
-console.log(Countdown.getTimeLimit(goalDate, currentDate));
+
 /**
  * Helpers
  */
