@@ -17,7 +17,7 @@ const
 	growingTimer	= document.querySelector(`#growing-countdown`),
 
 	currentDate		= new Date(),
-	goalDate		= new Date(2023, 0, 1),
+	goalDate		= new Date(2022, 11, 3, -11, -51),
 
 	DATE_RANGE		= createEnum({
 		'START_AGE_GROWTH': 25,
@@ -142,7 +142,7 @@ const Countdown	= {
 					alphaWidth		= 1;
 					initialWidth	= 200;
 					initialHeight	= 100;
-				}else if(DATE_RANGE.THIRD_AGE_GROWTH >= _days && 1 < _days)
+				}else if(DATE_RANGE.THIRD_AGE_GROWTH >= _days && 1 < _days || `00` != _minutes)
 				{
 					console.log({'Third Age':7});
 					initialWidth	= 220;
@@ -151,7 +151,11 @@ const Countdown	= {
 				}
 			},
 			onComplete: function(data){
-				console.log(data);
+				const jsConfetti	= new JSConfetti();
+
+				jsConfetti.addConfetti({
+					emojis: ['⚡️', '💥', '✨', '💫', '🌸',],
+				});
 			}
 		});
 	},
@@ -186,3 +190,12 @@ function createEnum(values)
 
 	return Object.freeze(enumObject);
 }
+
+/**
+ * Page content
+ */
+document.addEventListener(`DOMContentLoaded`, _ => {
+	document.querySelector(`#current-year`)
+		.textContent	= `${currentDate.getFullYear()}`
+	;
+});

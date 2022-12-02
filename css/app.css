@@ -1,17 +1,37 @@
+/*!
+ | @author Ismael
+ | @description Growing Baobab within a year
+ | @GitHub MistaIA
+ | @GitLab MistaIA
+ | @version 1.00
+ | 
+ | @contributors : @Harrold
+ */
+
+
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@400&display=swap");
 
+a {
+    color: #007bff;
+}
+
+/* 
 #arcade-container {
 	width: 100%;
 	min-height: 100vh;
 	background-color: rgba(165, 162, 162, 0.3);
 	display: grid;
 	position: fixed;
-	top: 0;
+	top: 0;#dc3545
 	left: 0;
 
 	place-items: center;
 	z-index: 1;
 	text-align: center;
+} */
+
+#baobab-canvas {
+	transition: all 0.5s ease-in-out;
 }
 
 #countdown-caption {
@@ -56,8 +76,22 @@
 	line-height: 1;
 }
 
+footer {
+	font-size: 1em;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
 .text-center {
 	text-align: center;
+}
+
+.text-muted {
+    color: #6c757d!important;
+}
+
+.text-danger {
+	color: #dc3545;
 }
 
 @media screen and (max-width: 767px){
