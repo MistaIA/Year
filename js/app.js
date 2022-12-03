@@ -11,13 +11,13 @@
 
 const
 	BG_WIDTH		= 1080,
-	BG_HEIGHT		= 800,
+	BG_HEIGHT		= 850,
 
 	arcadeContainer	= document.querySelector(`#arcade-container`),
 	growingTimer	= document.querySelector(`#growing-countdown`),
 
 	currentDate		= new Date(),
-	goalDate		= new Date(2023, 0, 1),
+	goalDate		= new Date(2023, 0, 1)
 
 	DATE_RANGE		= createEnum({
 		'START_AGE_GROWTH': 25,
@@ -35,7 +35,9 @@ let
 
 	rotationAngle	= .7,
 	edgeReduction	= .63,
-	widthReduction	= .45
+	widthReduction	= .45,
+
+	sideSnapShot	= {}
 ;
 
 
@@ -46,13 +48,51 @@ function setup()
 	;
 	background(0, 0, 30);
 
-	frameRate(8);
-
+	frameRate(30);
 	drawRoots(width / 2, height, 0, initialWidth, initialHeight);
 }
 
 function draw()
 {
+	//Guards
+	if(DATE_RANGE.START_AGE_GROWTH >= Countdown.daysLeft && DATE_RANGE.MEDIUM_AGE_GROWTH < Countdown.daysLeft)
+	{
+		console.log(`%c 1`, `font-size:1em;color:blue;`);
+		betaHeight		= 1;
+	}else if(DATE_RANGE.MEDIUM_AGE_GROWTH >= Countdown.daysLeft && DATE_RANGE.THIRD_AGE_GROWTH < Countdown.daysLeft)
+	{
+		console.log(`%c 2`, `font-size:1em;color:blue;`);
+		betaHeight		= 1;
+		alphaWidth		= 1;
+
+		initialWidth	= 200;
+		initialHeight	= 100;
+	}else if(DATE_RANGE.THIRD_AGE_GROWTH >= Countdown.daysLeft && true === Countdown?.state)
+	{
+		console.log(`%c 3`, `font-size:1em;color:blue;`);
+		betaHeight		= 1;
+		alphaWidth		= 1;
+
+		initialWidth	= 220;
+		initialHeight	= 110;
+		growthGuard		= 2;
+	}else if(false === Countdown?.state)
+	{
+		console.log(`%c 4`, `font-size:1em;color:blue;`);
+		betaHeight		= 1;
+		alphaWidth		= 1;
+		initialWidth	= 240;
+		initialHeight	= 120;
+
+		growthGuard		= 2;
+
+		rotationAngle	= .49;
+		edgeReduction	= .7;
+		widthReduction	= .58;
+	}
+
+	//Processing
+	smooth();
 	drawRootTrunk(width / 2, height - 10, 0, initialWidth, 90);
 	drawEdge(width / 2, height - 120, 0, initialWidth, initialHeight * 2);
 }
@@ -111,12 +151,9 @@ function drawRoots(x, y, angle, width, height)
 
 const Countdown	= {
 	instance: undefined,
+	daysLeft: undefined,
+	state: true,
 
-	getTimeLimit: function getTimeLimit(forwardDate, backwardDate){
-		const timeLimit	= forwardDate - backwardDate;
-
-		return timeLimit;
-	},
 	createCountModule: function createCountModule(){
 		const _this	= this;
 
@@ -127,7 +164,7 @@ const Countdown	= {
 				let 
 					_difference	= data.diffObjParsed,
 
-					_days		= _difference.d,
+					_days		= _this.daysLeft = _difference.d,
 					_hours		= _difference.h,
 					_minutes	= _difference.m,
 					_seconds	= _difference.s
@@ -137,46 +174,19 @@ const Countdown	= {
 				_this.$hours.textContent	= zeroPadding(_hours);
 				_this.$minutes.textContent	= zeroPadding(_minutes);
 				_this.$seconds.textContent	= zeroPadding(_seconds);
-
-				if(DATE_RANGE.START_AGE_GROWTH >= _days && DATE_RANGE.MEDIUM_AGE_GROWTH < _days)
-				{
-					console.log({'Start Age':25});
-					betaHeight	= 1;
-				}else if(DATE_RANGE.MEDIUM_AGE_GROWTH >= _days && DATE_RANGE.THIRD_AGE_GROWTH < _days)
-				{
-					console.log({'Medium Age':15});
-					betaHeight		= 1;
-					alphaWidth		= 1;
-					initialWidth	= 200;
-					initialHeight	= 100;
-				}else if(DATE_RANGE.THIRD_AGE_GROWTH >= _days && 0 > _this.getTimeLimit(goalDate, currentDate))
-				{
-					console.log({'Third Age':7});
-					betaHeight		= 1;
-					alphaWidth		= 1;
-					initialWidth	= 220;
-					initialHeight	= 120;
-					growthGuard		= 2;
-				}
 			},
 			onComplete: function(data){
+				_this.state	= false;
+				
 				document.querySelector(`.iacontent`)
 					.style.display	= `grid`
 				;
-
 				const jsConfetti	= new JSConfetti();
 
 				jsConfetti.addConfetti({
 					emojis: [`⚡️`, `💥`, `✨`, `💫`, `🌸`, `🎊`, `🎐`,],
 					confettiNumber: 150,
 				});
-
-				console.log({'Completed':0});
-				betaHeight		= 1;
-				alphaWidth		= 1;
-				initialWidth	= 240;
-				initialHeight	= 120;
-				growthGuard		= 2;
 			}
 		});
 	},
@@ -193,6 +203,7 @@ const Countdown	= {
 };
 
 Countdown.init();
+console.log(Countdown.instance);
 
 /**
  * Helpers
@@ -211,6 +222,37 @@ function createEnum(values)
 
 	return Object.freeze(enumObject);
 }
+
+function getTimeLimit(forwardDate, backwardDate)
+{
+	return forwardDate - backwardDate;
+}
+
+function doLerp(initial, target, step = .01)
+{
+	if(target === initial) return target;
+
+	return initial + step;
+}
+
+async function snapSideCharacteristics({initialWidth, initialHeight, alphaWidth, betaHeight, rotationAngle, widthReduction, edgeReduction})
+{
+	sideSnapShot	= {initialWidth, initialHeight, alphaWidth, betaHeight, rotationAngle, widthReduction, edgeReduction};
+}
+
+const myLogger        = () => {
+		console
+			.log({
+					initialHeight, initialWidth,
+					growthGuard,
+					alphaWidth, betaHeight,
+					edgeReduction, widthReduction,
+				},
+				`font-size:1em;color:blue;`
+			)
+		;
+	}
+;
 
 /**
  * Page content

@@ -42,9 +42,9 @@ a {
 /* endregion */
 
 /* region Canvas */
-/* #baobab-canvas {
-	transition: all 0.5s ease-in-out;
-} */
+#baobab-canvas {
+	transition: all 2s ease-in-out;
+}
 
 #countdown-caption {
 	margin: 0 auto 0.5rem;
