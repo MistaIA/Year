@@ -1,11 +1,11 @@
 /**
  | @author Ismael
- | @description Growing Baobab within a year
+ | @description 🤧 don't cheat bruuh
  | @GitHub MistaIA
  | @GitLab MistaIA
  | @version 1.00
  | 
- | @contributors : 
+ | @contributors : @harrySign
  */
 
 
@@ -26,16 +26,16 @@ const
 	});
 ;
 let
-	initialWidth	= 180,
-	initialHeight	= 90,
+	initialWidth	= sideWidth = 180,
+	initialHeight	= sideHeight = 90,
 	strokeColor		= 255,
 	growthGuard		= 5,
-	alphaWidth		= .5,			// width reductor
-	betaHeight		= .75,			// height reductor
+	alphaWidth		= sideAlpha = .5,			// width reductor
+	betaHeight		= sideBeta = .75,			// height reductor
 
-	rotationAngle	= .7,
-	edgeReduction	= .63,
-	widthReduction	= .45,
+	rotationAngle	= sideAngle = .7,
+	edgeReduction	= sideEdge = .63,
+	widthReduction	= sideThick = .45,
 
 	sideSnapShot	= {}
 ;
@@ -57,11 +57,11 @@ function draw()
 	//Guards
 	if(DATE_RANGE.START_AGE_GROWTH >= Countdown.daysLeft && DATE_RANGE.MEDIUM_AGE_GROWTH < Countdown.daysLeft)
 	{
-		console.log(`%c 1`, `font-size:1em;color:blue;`);
 		betaHeight		= 1;
 	}else if(DATE_RANGE.MEDIUM_AGE_GROWTH >= Countdown.daysLeft && DATE_RANGE.THIRD_AGE_GROWTH < Countdown.daysLeft)
 	{
-		console.log(`%c 2`, `font-size:1em;color:blue;`);
+		sideBeta		= 1;
+
 		betaHeight		= 1;
 		alphaWidth		= 1;
 
@@ -69,7 +69,11 @@ function draw()
 		initialHeight	= 100;
 	}else if(DATE_RANGE.THIRD_AGE_GROWTH >= Countdown.daysLeft && true === Countdown?.state)
 	{
-		console.log(`%c 3`, `font-size:1em;color:blue;`);
+		sideBeta		= 1;
+		sideAlpha		= 1;
+		sideWidth		= 200;
+		sideHeight		= 100;
+
 		betaHeight		= 1;
 		alphaWidth		= 1;
 
@@ -78,7 +82,12 @@ function draw()
 		growthGuard		= 2;
 	}else if(false === Countdown?.state)
 	{
-		console.log(`%c 4`, `font-size:1em;color:blue;`);
+		sideBeta		= 1;
+		sideAlpha		= 1;
+		sideWidth		= 220;
+		sideHeight		= 110;
+		sideAngle		= .6;
+
 		betaHeight		= 1;
 		alphaWidth		= 1;
 		initialWidth	= 240;
@@ -94,10 +103,11 @@ function draw()
 	//Processing
 	smooth();
 	drawRootTrunk(width / 2, height - 10, 0, initialWidth, 90);
-	drawEdge(width / 2, height - 120, 0, initialWidth, initialHeight * 2);
+	drawEdge(width / 2, height - 120, 0, sideWidth, sideHeight * 2, sideAlpha, sideBeta);
+	drawEdge(width / 2, height - 120, 0, initialWidth, initialHeight * 2, alphaWidth, betaHeight);
 }
 
-function drawEdge(x, y, angle, width, height)
+function drawEdge(x, y, angle, width, height, alphaWidth, betaHeight)
 {
 	if(growthGuard > height) return;
 
@@ -110,8 +120,8 @@ function drawEdge(x, y, angle, width, height)
 	vector.rotate(angle);
 	line(x, y, x + vector.x, y + vector.y);
 
-	drawEdge(x + vector.x, y + vector.y, angle + rotationAngle, width * widthReduction * alphaWidth, height * edgeReduction);
-	drawEdge(x + vector.x, y + vector.y, angle - rotationAngle, width * widthReduction, height * edgeReduction * betaHeight);
+	drawEdge(x + vector.x, y + vector.y, angle + rotationAngle, width * widthReduction * alphaWidth, height * edgeReduction, alphaWidth, betaHeight);
+	drawEdge(x + vector.x, y + vector.y, angle - rotationAngle, width * widthReduction, height * edgeReduction * betaHeight, alphaWidth, betaHeight);
 }
 
 function drawRootTrunk(x, y, angle, width, height)
@@ -203,7 +213,6 @@ const Countdown	= {
 };
 
 Countdown.init();
-console.log(Countdown.instance);
 
 /**
  * Helpers
@@ -233,11 +242,6 @@ function doLerp(initial, target, step = .01)
 	if(target === initial) return target;
 
 	return initial + step;
-}
-
-async function snapSideCharacteristics({initialWidth, initialHeight, alphaWidth, betaHeight, rotationAngle, widthReduction, edgeReduction})
-{
-	sideSnapShot	= {initialWidth, initialHeight, alphaWidth, betaHeight, rotationAngle, widthReduction, edgeReduction};
 }
 
 const myLogger        = () => {
