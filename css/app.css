@@ -42,7 +42,7 @@ a {
 /* endregion */
 
 /* region Canvas */
-#baobab-canvas {
+#bokko-canvas {
 	display: flex;
 	transition: all 0.5 ease-in-out;
 	-webkit-box-pack: center;
@@ -126,7 +126,7 @@ footer {
 		margin-left: -2px;
 		font-size: 2.933vw;
 	}
-	#baobab-canvas canvas {
+	#bokko-canvas canvas {
 		width: 850px;
 	}
 	.iacontent .countdown {
